@@ -6,5 +6,4 @@ import newContainer from "./container";
     
     const serverHttp = container.get(ServerHttp);
     serverHttp.start();
-
 })()
