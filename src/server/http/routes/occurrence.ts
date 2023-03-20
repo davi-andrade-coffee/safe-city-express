@@ -22,8 +22,8 @@ export default class OccurrenceRouter extends _Router {
         const router = Router();
 
         router.post('/create', this.middlewareToken, this.controller.create.bind(this.controller))
-        router.post('/types', this.middlewareToken, this.controller.typeOccurrence.bind(this.controller))
-        router.post('/list', this.middlewareToken, this.controller.list.bind(this.controller))
+        router.get('/types', this.middlewareToken, this.controller.typeOccurrence.bind(this.controller))
+        router.get('/list/:cep', this.middlewareToken, this.controller.list.bind(this.controller))
 
         app.use('/occurrence', router);
     }

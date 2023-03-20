@@ -1,12 +1,9 @@
-import { injectable, interfaces } from "inversify";
+import { interfaces } from "inversify";
 import { getModelForClass, modelOptions, prop, ReturnModelType } from "@typegoose/typegoose";
-import mongoose, { Connection } from "mongoose";
+import { Connection } from "mongoose";
 
-@modelOptions({ schemaOptions: { collection: 'users',  } })
+@modelOptions({ schemaOptions: { collection: 'users' } })
 export default class UserSchema {
-    @prop()
-    public _id: string;
-  
     @prop({required: true, type: String})
     name!: string
 

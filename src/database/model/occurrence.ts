@@ -1,4 +1,4 @@
-import { injectable, interfaces } from "inversify";
+import { interfaces } from "inversify";
 import { getModelForClass, modelOptions, prop, ReturnModelType } from "@typegoose/typegoose";
 import mongoose, { Connection } from "mongoose";
 
@@ -10,11 +10,8 @@ export enum TypeOccurrence {
     OUTROS = 'outros'
 }
 
-@modelOptions({ schemaOptions: { collection: 'occorrence' } })
+@modelOptions({ schemaOptions: { collection: 'occorrences' } })
 export default class OccorrenceSchema {
-    @prop()
-    public _id: string;
-  
     @prop({required: false, type: String})
     description: string
 
@@ -24,7 +21,7 @@ export default class OccorrenceSchema {
     @prop({required: true, type: Date})
     date!: Date
 
-    @prop({required: true, type: String})
+    @prop({required: true})
     created_user_id!: string
 
     @prop({required: true, type: String})

@@ -5,8 +5,8 @@ import ServerHttp from "../server/http";
 import UserController from "../server/http/controller/user";
 import OccurrenceController from '../server/http/controller/occurrence';
 import OccurrenceRouter from '../server/http/routes/occurrence';
-import MiddlewareToken from '../server/http/middleware/auth-token';
 import UserRouter from "../server/http/routes/user";
+import MiddlewareToken from '../server/http/middleware/auth-token';
 
 import newConnection from "../database";
 import UserSchema, {getModel} from '../database/model/user';

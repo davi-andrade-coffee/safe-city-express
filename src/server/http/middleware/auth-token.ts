@@ -2,6 +2,7 @@ import { ReturnModelType } from "@typegoose/typegoose";
 import { Request, Response, NextFunction } from "express";
 import { interfaces } from "inversify";
 import jwt from 'jsonwebtoken';
+import mongoose from "mongoose";
 import { Middleware } from ".";
 import UserSchema from "../../../database/model/user";
 
@@ -15,7 +16,7 @@ export default (context: interfaces.Context): Middleware => {
             if (!token) return res.status(403).json({message: "Não foi encontrado o token"})
 
             token = token.replace('Bearer ', '')
-            const decoded = jwt.verify(token, process.env.KEY_TOKEN || '') as UserSchema;
+            const decoded = jwt.verify(token, process.env.KEY_TOKEN || '') as UserSchema & {_id: mongoose.Types.ObjectId};
 
             const userId = decoded._id;
             if (!userId) return res.status(403).json({message: "Token inválido"})
@@ -23,7 +24,7 @@ export default (context: interfaces.Context): Middleware => {
             const user = await userModel.findById(userId).lean()
             if (!user) return res.status(403).json({message: "Token inválido"})
 
-            req.headers.user_id = userId;
+            req.headers.user_id = '' + userId;
 
             next()
         } catch (err: any) {

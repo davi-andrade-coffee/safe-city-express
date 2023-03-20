@@ -1,7 +1,9 @@
 import express, {Express} from 'express';
 import { injectable, inject } from 'inversify';
+import bodyParser from 'body-parser';
 import { ServiceIdentifier } from '../../interfaces/enum';
 import _Router from './routes';
+
 
 @injectable()
 export default class ServerHttp {
@@ -13,6 +15,10 @@ export default class ServerHttp {
     ) {
         this.app = express()
      
+        this.app.use(bodyParser.urlencoded({ extended: false }))
+
+        this.app.use(bodyParser.json())
+
         for (const router of allRouters) {
             router.load(this.app);
         }

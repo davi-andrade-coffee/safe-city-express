@@ -1,6 +1,7 @@
 import { ReturnModelType } from "@typegoose/typegoose";
 import { Request, Response } from "express";
 import { inject, injectable } from "inversify";
+import mongoose from "mongoose";
 import OccorrenceSchema, { TypeOccurrence } from '../../../database/model/occurrence';
 
 @injectable()
@@ -15,7 +16,7 @@ export default class OccurrenceController {
 
     async typeOccurrence(req: Request, res: Response) {
         try {
-            return res.status(201).json({ types: TypeOccurrence });
+            return res.status(201).json({ types: Object.values(TypeOccurrence) });
         } catch(err: any) {
             return res.status(503).json({message: err.message});
         }
@@ -29,6 +30,7 @@ export default class OccurrenceController {
             } = req.body;
             
             const model = new this.occurrenceModel();
+            model._id = new mongoose.Types.ObjectId();
             model.description = description;
             model.type = type;
             model.date = new Date(date);
@@ -46,7 +48,7 @@ export default class OccurrenceController {
         try {
             const {
                 cep
-            } = req.body;
+            } = req.params;
 
             const today = new Date();
 

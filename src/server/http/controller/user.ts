@@ -27,6 +27,7 @@ export default class UserController {
             if (isExistEmail) return res.status(403).json({message: 'Esse email já está sendo utilizado'})
 
             const model = new this.userModel();
+            model._id = new mongoose.Types.ObjectId()
             model.name = name;
             model.surname = surname;
             model.cpf = cpf;
